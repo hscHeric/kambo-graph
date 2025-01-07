@@ -1,5 +1,7 @@
 use std::{fmt::Debug, hash::Hash};
 
+use crate::GraphError;
+
 /// A trait defining the core functionality of a graph.
 ///
 /// This trait provides methods to interact with the graph structure,
@@ -90,4 +92,65 @@ pub trait Graph {
                 / 2
         }
     }
+}
+
+/// A trait defining the core mutable functionality of a graph.
+pub trait GraphMut: Graph {
+    /// Adds a vertex to the graph.
+    ///
+    /// Returns an error if the vertex already exists.
+    ///
+    /// # Arguments
+    ///
+    /// * `vertex` - The vertex to add.
+    ///
+    /// # Errors
+    ///
+    /// Returns `GraphError::VertexAlreadyExists` if the vertex is already in the graph.
+    fn add_vertex(&mut self, vertex: Self::Vertex) -> Result<(), GraphError>;
+
+    /// Removes a vertex from the graph.
+    ///
+    /// Returns an error if the vertex does not exist.
+    ///
+    /// # Arguments
+    ///
+    /// * `vertex` - A reference to the vertex to be removed.
+    ///
+    /// # Errors
+    ///
+    /// Returns `GraphError::VertexNotFound` if the vertex does not exist.
+    fn remove_vertex(&mut self, vertex: &Self::Vertex) -> Result<(), GraphError>;
+
+    /// Adds an edge to the graph.
+    ///
+    /// Both vertices must already exist in the graph.
+    ///
+    /// Returns an error if the edge already exists.
+    ///
+    /// # Arguments
+    ///
+    /// * `u` - The source vertex.
+    /// * `v` - The target vertex.
+    ///
+    /// # Errors
+    ///
+    /// Returns `GraphError::EdgeAlreadyExists` if the edge already exists.
+    fn add_edge(&mut self, u: &Self::Vertex, v: &Self::Vertex) -> Result<(), GraphError>;
+
+    /// Removes an edge from the graph.
+    ///
+    /// Both vertices and the edge must already exist in the graph.
+    ///
+    /// Returns an error if the edge does not exist.
+    ///
+    /// # Arguments
+    ///
+    /// * `u` - The source vertex.
+    /// * `v` - The target vertex.
+    ///
+    /// # Errors
+    ///
+    /// Returns `GraphError::EdgeNotFound` if the edge does not exist.
+    fn remove_edge(&mut self, u: &Self::Vertex, v: &Self::Vertex) -> Result<(), GraphError>;
 }

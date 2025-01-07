@@ -18,6 +18,7 @@ pub mod traits;
 
 pub use error::GraphError;
 pub use traits::graph::Graph;
+pub use traits::graph::GraphMut;
 
 /// The current version of the crate
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
