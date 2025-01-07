@@ -6,20 +6,6 @@ use std::fmt::Debug;
 /// This enum includes common errors that might occur during graph manipulation,
 /// such as invalid operations, missing vertices or edges, and duplicates.
 ///
-/// Example usage:
-///
-/// ```rust
-/// fn example() -> Result<(), GraphError> {
-///     Err(GraphError::VertexNotFound)
-/// }
-///
-/// fn main() {
-///     match example() {
-///         Ok(_) => println!("Operation succeeded."),
-///         Err(e) => eprintln!("Error: {}", e),
-///     }
-/// }
-/// ```
 #[derive(Debug)]
 pub enum GraphError {
     /// Vertex not found in the graph.
@@ -41,13 +27,6 @@ impl std::fmt::Display for GraphError {
     ///
     /// This implementation converts each variant of `GraphError` into a
     /// readable string message. It is primarily used to print or log errors.
-    ///
-    /// # Examples
-    ///
-    /// ```rust
-    /// let error = GraphError::VertexNotFound;
-    /// println!("{}", error); // Output: "Vertex not found."
-    /// ```
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             GraphError::VertexNotFound => write!(f, "Vertex not found."),
