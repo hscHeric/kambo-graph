@@ -9,8 +9,6 @@ use std::fmt::Debug;
 /// Example usage:
 ///
 /// ```rust
-/// use crate::GraphError;
-///
 /// fn example() -> Result<(), GraphError> {
 ///     Err(GraphError::VertexNotFound)
 /// }
@@ -39,7 +37,17 @@ pub enum GraphError {
 }
 
 impl std::fmt::Display for GraphError {
-    /// Implementation of the `Display` trait for user-friendly error messages.
+    /// Formats the error for user-friendly display.
+    ///
+    /// This implementation converts each variant of `GraphError` into a
+    /// readable string message. It is primarily used to print or log errors.
+    ///
+    /// # Examples
+    ///
+    /// ```rust
+    /// let error = GraphError::VertexNotFound;
+    /// println!("{}", error); // Output: "Vertex not found."
+    /// ```
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             GraphError::VertexNotFound => write!(f, "Vertex not found."),
