@@ -1,0 +1,9 @@
+[package]
+name = "kambo-graph"
+version = "0.1.0"
+edition = "2021"
+authors = ["Heric da Silva Cruz <hericsilvaho@gmail.com>"]
+repository = "https://github.com/hscHeric/kambo-graph"
+
+
+[dependencies]
