@@ -13,10 +13,14 @@
 /// vertices, duplicate edges, or invalid operations.
 pub mod error;
 
+/// Graph struct implementations
+pub mod graphs;
+
 /// Module defining traits for graph structures.
 pub mod traits;
 
 pub use error::GraphError;
+pub use graphs::simple::SimpleGraph;
 pub use traits::graph::Graph;
 pub use traits::graph::GraphMut;
 
