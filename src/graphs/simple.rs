@@ -10,6 +10,7 @@ use crate::{
 };
 
 /// Represents a simple graph using an adjacency list (no self-loops or multiple edges)
+#[derive(Clone, Debug)]
 pub struct SimpleGraph<V, W = ()>
 where
     V: Eq + Hash + Clone + Debug,
@@ -153,5 +154,19 @@ where
         }
 
         Ok(())
+    }
+}
+
+impl<V, W> Default for SimpleGraph<V, W>
+where
+    V: Eq + Hash + Clone + Debug,
+    W: Clone + Debug,
+{
+    fn default() -> Self {
+        Self {
+            vertices: HashMap::new(),
+            edges: HashMap::new(),
+            directed: false,
+        }
     }
 }
