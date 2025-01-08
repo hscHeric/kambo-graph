@@ -21,6 +21,25 @@ where
     directed: bool,
 }
 
+impl<V, W> SimpleGraph<V, W>
+where
+    V: Eq + Hash + Clone + Debug,
+    W: Clone + Debug,
+{
+    /// Creates a new `SimpleGraph`.
+    ///
+    /// # Arguments
+    ///
+    /// * `directed` - `true` for a directed graph, `false` for an undirected graph.
+    pub fn new(directed: bool) -> Self {
+        Self {
+            vertices: HashMap::new(),
+            edges: HashMap::new(),
+            directed,
+        }
+    }
+}
+
 impl<V> Graph for SimpleGraph<V, ()>
 where
     V: Eq + Hash + Clone + Debug,
