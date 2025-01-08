@@ -4,7 +4,10 @@ use std::{
     hash::Hash,
 };
 
-use crate::{Graph, GraphMut};
+use crate::{
+    traits::weighted::{WeightedGraph, WeightedGraphMut},
+    Graph, GraphMut,
+};
 
 /// Represents a simple graph using an adjacency list (no self-loops or multiple edges)
 pub struct SimpleGraph<V, W = ()>
@@ -104,6 +107,49 @@ where
         self.vertices.get_mut(u).unwrap().remove(v);
         if !self.directed {
             self.vertices.get_mut(v).unwrap().remove(u);
+        }
+
+        Ok(())
+    }
+}
+
+impl<V, W> WeightedGraph for SimpleGraph<V, W>
+where
+    V: Clone + Debug + Hash + Eq,
+    W: Clone + Debug,
+    SimpleGraph<V, W>: Graph<Vertex = V>,
+{
+    type Weight = W;
+
+    fn edge_weight(&self, u: &Self::Vertex, v: &Self::Vertex) -> Option<&Self::Weight> {
+        self.edges.get(&(u.clone(), v.clone()))
+    }
+}
+
+impl<V, W> WeightedGraphMut for SimpleGraph<V, W>
+where
+    V: Clone + Debug + Hash + Eq,
+    W: Clone + Debug,
+    SimpleGraph<V, W>: GraphMut<Vertex = V>,
+{
+    fn set_edge_weight(
+        &mut self,
+        u: &Self::Vertex,
+        v: &Self::Vertex,
+        weight: Self::Weight,
+    ) -> Result<(), crate::GraphError> {
+        if !self.contains_vertex(u) || !self.contains_vertex(v) {
+            return Err(crate::GraphError::VertexNotFound);
+        }
+
+        self.vertices.get_mut(u).unwrap().insert(v.clone());
+        if !self.directed {
+            self.vertices.get_mut(v).unwrap().insert(u.clone());
+        }
+
+        self.edges.insert((u.clone(), v.clone()), weight.clone());
+        if !self.directed {
+            self.edges.insert((v.clone(), u.clone()), weight.clone());
         }
 
         Ok(())
