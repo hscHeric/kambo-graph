@@ -92,6 +92,41 @@ pub trait Graph {
                 / 2
         }
     }
+
+    /// Returns a list of isolated vertices in the graph.
+    ///
+    /// An isolated vertex is a vertex with no neighbors.
+    ///
+    /// # Returns
+    /// A `Vec` containing all the isolated vertices (cloned) in the graph.
+
+    fn get_isolated_vertices(&self) -> Vec<Self::Vertex> {
+        self.vertices()
+            .filter(|&v| {
+                match self.neighbors(v) {
+                    Some(neighbors) => neighbors.count() == 0,
+                    None => true, // No neighbors
+                }
+            })
+            .cloned()
+            .collect()
+    }
+
+    /// Checks if there is any isolated vertex in the graph.
+    ///
+    /// An isolated vertex is a vertex with no neighbors.
+    ///
+    /// # Returns
+    /// - `true` if there is at least one isolated vertex in the graph.
+    /// - `false` otherwise.
+    fn has_isolated_vertex(&self) -> bool {
+        self.vertices().any(|v| {
+            match self.neighbors(v) {
+                Some(neighbors) => neighbors.count() == 0,
+                None => true, // No neighbors
+            }
+        })
+    }
 }
 
 /// A trait defining the core mutable functionality of a graph.
