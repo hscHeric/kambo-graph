@@ -31,7 +31,7 @@ where
     /// # Arguments
     ///
     /// * `directed` - `true` for a directed graph, `false` for an undirected graph.
-    pub fn new(directed: bool) -> Self {
+    fn new(directed: bool) -> Self {
         Self {
             vertices: HashMap::new(),
             edges: HashMap::new(),
@@ -187,5 +187,57 @@ where
             edges: HashMap::new(),
             directed: false,
         }
+    }
+}
+
+/// Type alias for a directed graph without weights
+pub type DirectedGraph<V> = SimpleGraph<V, ()>;
+
+/// Type alias for an undirected graph without weights
+pub type UndirectedGraph<V> = SimpleGraph<V, ()>;
+
+/// Type alias for a directed graph with weights of type W
+pub type WeightedDirectedGraph<V, W> = SimpleGraph<V, W>;
+
+/// Type alias for an undirected graph with weights of type W
+pub type WeightedUndirectedGraph<V, W> = SimpleGraph<V, W>;
+
+impl<V> SimpleGraph<V, ()>
+where
+    V: Eq + Hash + Clone + Debug,
+{
+    /// Creates a new directed graph without weights.
+    ///
+    /// This is equivalent to creating a `DirectedGraph<V>`.
+    ///
+    pub fn new_directed() -> Self {
+        SimpleGraph::new(true)
+    }
+
+    /// Creates a new undirected graph without weights.
+    ///
+    /// This is equivalent to creating an `UndirectedGraph<V>`.
+    pub fn new_undirected() -> Self {
+        SimpleGraph::new(false)
+    }
+}
+
+impl<V, W> SimpleGraph<V, W>
+where
+    V: Eq + Hash + Clone + Debug,
+    W: Clone + Debug,
+{
+    /// Creates a new directed graph with weights of type W.
+    ///
+    /// This is equivalent to creating a `WeightedDirectedGraph<V, W>`.
+    pub fn new_weighted_directed() -> Self {
+        SimpleGraph::new(true)
+    }
+
+    /// Creates a new undirected graph with weights of type W.
+    ///
+    /// This is equivalent to creating a `WeightedUndirectedGraph<V, W>`.
+    pub fn new_weighted_undirected() -> Self {
+        SimpleGraph::new(false)
     }
 }
