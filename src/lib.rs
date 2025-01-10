@@ -19,6 +19,9 @@ pub mod graphs;
 /// Module defining traits for graph structures.
 pub mod traits;
 
+/// Module defining utilities functions
+pub mod utils;
+
 pub use error::GraphError;
 pub use graphs::simple::SimpleGraph;
 pub use traits::graph::Graph;
