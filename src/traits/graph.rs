@@ -127,6 +127,24 @@ pub trait Graph {
             }
         })
     }
+
+    // Returns the degree of the vertex in an undirected graph,
+    /// or the out-degree in a directed graph.
+    ///
+    /// # Arguments
+    ///
+    /// * `v` - The vertex to calculate the degree
+    ///
+    /// # Returns
+    ///
+    /// * `Option<usize>` - The degree of the vertex if it exists in the graph, None otherwise
+    fn degree(&self, v: &Self::Vertex) -> Option<usize> {
+        if !self.contains_vertex(v) {
+            None
+        } else {
+            self.neighbors(v).map(|neighbors| neighbors.count())
+        }
+    }
 }
 
 /// A trait defining the core mutable functionality of a graph.
