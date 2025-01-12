@@ -131,6 +131,26 @@ where
 
         Ok(())
     }
+
+    fn remove_isolated_vertices(&mut self) -> Result<(), crate::GraphError> {
+        let isolated_vertices: Vec<V> = self
+            .vertices
+            .iter()
+            .filter(|(_, neighbors)| neighbors.is_empty())
+            .map(|(v, _)| v.clone())
+            .collect();
+
+        if isolated_vertices.is_empty() {
+            return Err(crate::GraphError::VertexNotFound);
+        }
+
+        // Remove cada vértice isolado
+        for vertex in &isolated_vertices {
+            self.remove_vertex(vertex)?;
+        }
+
+        Ok(())
+    }
 }
 
 impl<V, W> WeightedGraph for SimpleGraph<V, W>

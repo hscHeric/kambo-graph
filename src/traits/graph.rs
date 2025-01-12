@@ -206,4 +206,13 @@ pub trait GraphMut: Graph {
     ///
     /// Returns `GraphError::EdgeNotFound` if the edge does not exist.
     fn remove_edge(&mut self, u: &Self::Vertex, v: &Self::Vertex) -> Result<(), GraphError>;
+
+    /// Remove all isolated vertices from the graph.
+    ///
+    /// # Returns
+    /// A vector of the removed vertices.
+    ///
+    /// # Errors
+    /// Returns `GraphError::VertexNotFound` if no isolated vertices are found.
+    fn remove_isolated_vertices(&mut self) -> Result<(), GraphError>;
 }
