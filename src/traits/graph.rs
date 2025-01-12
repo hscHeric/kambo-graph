@@ -98,6 +98,7 @@ pub trait Graph {
     /// An isolated vertex is a vertex with no neighbors.
     ///
     /// # Returns
+    ///
     /// A `Vec` containing all the isolated vertices (cloned) in the graph.
 
     fn get_isolated_vertices(&self) -> Vec<Self::Vertex> {
@@ -210,9 +211,11 @@ pub trait GraphMut: Graph {
     /// Remove all isolated vertices from the graph.
     ///
     /// # Returns
+    ///
     /// A vector of the removed vertices.
     ///
     /// # Errors
+    ///
     /// Returns `GraphError::VertexNotFound` if no isolated vertices are found.
     fn remove_isolated_vertices(&mut self) -> Result<(), GraphError>;
 }
