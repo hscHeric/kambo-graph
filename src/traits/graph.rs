@@ -98,9 +98,7 @@ pub trait Graph {
     /// An isolated vertex is a vertex with no neighbors.
     ///
     /// # Returns
-    ///
     /// A `Vec` containing all the isolated vertices (cloned) in the graph.
-
     fn get_isolated_vertices(&self) -> Vec<Self::Vertex> {
         self.vertices()
             .filter(|&v| {
