@@ -22,7 +22,7 @@ pub trait Graph {
     ///
     /// # Returns
     /// A boxed iterator that yields references to the vertices in the graph.
-    fn vertices(&self) -> Box<dyn Iterator<Item = &Self::Vertex> + '_>;
+    fn vertices(&self) -> impl Iterator<Item = &Self::Vertex>;
 
     /// Returns an iterator over the neighbors of a given vertex.
     ///
