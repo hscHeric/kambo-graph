@@ -12,6 +12,14 @@ use crate::GraphError;
 ///
 /// # Returns
 /// A vector of edges or an error if the file could not be read.
+///
+/// # Errors
+/// This function returns a `GraphError` in the following cases:
+/// - If the file cannot be opened.
+/// - If a line cannot be read from the file.
+/// - If a line has an invalid format (e.g., less than two elements).
+/// - If a vertex cannot be parsed into a `usize`.
+/// - If a weight (if present) cannot be parsed into an `i32`.
 pub fn parse_edge_list(file_path: &str) -> Result<Vec<(usize, usize, Option<i32>)>, GraphError> {
     let path = Path::new(file_path);
     let file = File::open(path)

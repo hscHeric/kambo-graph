@@ -5,6 +5,9 @@
 
 #![warn(missing_docs)]
 #![cfg_attr(docsrs, feature(doc_cfg))]
+#![deny(clippy::perf)]
+#![deny(clippy::all)]
+#![deny(clippy::pedantic)]
 
 /// Module for handling errors related to graph operations.
 ///

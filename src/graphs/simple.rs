@@ -46,7 +46,7 @@ where
 {
     type Vertex = V;
 
-    fn vertices(&self) -> Box<dyn Iterator<Item = &Self::Vertex> + '_> {
+    fn vertices(&self) -> impl Iterator<Item = &Self::Vertex> {
         Box::new(self.vertices.keys())
     }
 
@@ -90,7 +90,7 @@ where
         let vertex_clone = vertex.clone();
         self.vertices.remove(vertex);
 
-        self.edges.retain(|(u, v), _| u != vertex && v != vertex);
+        self.edges.retain(|(u, v), ()| u != vertex && v != vertex);
 
         for neighbors in self.vertices.values_mut() {
             neighbors.remove(&vertex_clone);
@@ -230,6 +230,7 @@ where
     ///
     /// This is equivalent to creating a `DirectedGraph<V>`.
     ///
+    #[must_use]
     pub fn new_directed() -> Self {
         SimpleGraph::new(true)
     }
@@ -237,6 +238,7 @@ where
     /// Creates a new undirected graph without weights.
     ///
     /// This is equivalent to creating an `UndirectedGraph<V>`.
+    #[must_use]
     pub fn new_undirected() -> Self {
         SimpleGraph::new(false)
     }
@@ -250,6 +252,7 @@ where
     /// Creates a new directed graph with weights of type W.
     ///
     /// This is equivalent to creating a `WeightedDirectedGraph<V, W>`.
+    #[must_use]
     pub fn new_weighted_directed() -> Self {
         SimpleGraph::new(true)
     }
@@ -257,6 +260,7 @@ where
     /// Creates a new undirected graph with weights of type W.
     ///
     /// This is equivalent to creating a `WeightedUndirectedGraph<V, W>`.
+    #[must_use]
     pub fn new_weighted_undirected() -> Self {
         SimpleGraph::new(false)
     }

@@ -83,11 +83,11 @@ pub trait Graph {
     fn edge_count(&self) -> usize {
         if self.is_directed() {
             self.vertices()
-                .map(|v| self.neighbors(v).map_or(0, |n| n.count()))
+                .map(|v| self.neighbors(v).map_or(0, std::iter::Iterator::count))
                 .sum()
         } else {
             self.vertices()
-                .map(|v| self.neighbors(v).map_or(0, |n| n.count()))
+                .map(|v| self.neighbors(v).map_or(0, std::iter::Iterator::count))
                 .sum::<usize>()
                 / 2
         }
@@ -138,10 +138,10 @@ pub trait Graph {
     ///
     /// * `Option<usize>` - The degree of the vertex if it exists in the graph, None otherwise
     fn degree(&self, v: &Self::Vertex) -> Option<usize> {
-        if !self.contains_vertex(v) {
-            None
+        if self.contains_vertex(v) {
+            self.neighbors(v).map(std::iter::Iterator::count)
         } else {
-            self.neighbors(v).map(|neighbors| neighbors.count())
+            None
         }
     }
 }

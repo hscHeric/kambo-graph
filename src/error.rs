@@ -34,7 +34,7 @@ impl std::fmt::Display for GraphError {
             GraphError::EdgeAlreadyExists => write!(f, "Edge already exists."),
             GraphError::EdgeNotFound => write!(f, "Edge not found."),
             GraphError::InvalidOperation(msg) => {
-                write!(f, "Invalid operation: {}", msg)
+                write!(f, "Invalid operation: {msg}")
             }
         }
     }
